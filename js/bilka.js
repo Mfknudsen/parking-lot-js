@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkout = document.getElementById('exit-gate');
     
 	const bilkaBasePrice = 10;
+	const priceOffer = 5;
 
     checkin.addEventListener('click', () => {
         try {
@@ -19,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     checkout.addEventListener('click', () => {
         try {
             const licensePlate = prompt('Nummerplade?');
-            const price = parkingLot.checkout(licensePlate, bilkaBasePrice);
+            const price = parkingLot.checkout(licensePlate, bilkaBasePrice, priceOffer);
 
             var exchange = undefined;
             var paid = 0;

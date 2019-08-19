@@ -22,11 +22,11 @@ class ParkingLot {
         }
     }
 
-    checkout(licensePlate, price) {
+    checkout(licensePlate, price, priceOffer) {
         if (this.checkedInCars[licensePlate] != 'CHECKED IN') {
             throw new Error(`${licensePlate} holder ikke på pladsen!`);
         } else {
-            this.checkedInCars[licensePlate] = this.payIncrease(licensePlate, this.hourForEachCar[licensePlate], this.minForEachCar[licensePlate], price);
+            this.checkedInCars[licensePlate] = this.payIncrease(licensePlate, this.hourForEachCar[licensePlate], this.minForEachCar[licensePlate], price, priceOffer);
             return this.checkedInCars[licensePlate];
         }
     }
@@ -48,8 +48,15 @@ class ParkingLot {
         }
     }
 	
-	payIncrease(licensePlate, hour, min, basePrice){
-		const endPrice = basePrice * Math.floor((new Date().getHours() * 60 - hour * 60 + new Date().getMinutes() - min) / basePrice + 1); 
+	payIncrease(licensePlate, hour, min, basePrice, sOffer){
+	    if(sOffer == null){
+	       sOffer = 0;
+	    }
+		const endPrice = basePrice * Math.floor((new Date().getHours() * 60 - hour * 60 + new Date().getMinutes() - min) / basePrice + 1) - sOffer; 
+
+	    if (endPrice < 0){
+		   endPrice = 0;
+	    }
 
 		return endPrice;
 	}
