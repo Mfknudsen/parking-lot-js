@@ -1,28 +1,32 @@
 function openGate(gate) {
     gate.classList.add('open');
-    setTimeout(() => gate.classList.remove('open'), 5000); 
+    setTimeout(() => gate.classList.remove('open'), 2500); 
 }
 
 class ParkingLot {
     checkedInCars = {};
+	hourForEachCar = {};
+	minForEachCar = {};
 
     entranceGate = document.getElementById('entrance-gate');
     exitGate = document.getElementById('exit-gate');
 
-    checkin(licensePlate) {
+    checkin(licensePlate, store) {
         if (this.checkedInCars[licensePlate] != undefined) {
             throw new Error(`${licensePlate} holder allerede på pladsen!`);
         } else {
             this.checkedInCars[licensePlate] = "CHECKED IN";
             openGate(this.entranceGate);
+			this.hourForEachCar[licensePlate] = new Date().getHours();
+			this.minForEachCar[licensePlate] = new Date().getMinutes();
         }
     }
 
-    checkout(licensePlate) {
+    checkout(licensePlate, price) {
         if (this.checkedInCars[licensePlate] != 'CHECKED IN') {
             throw new Error(`${licensePlate} holder ikke på pladsen!`);
         } else {
-            this.checkedInCars[licensePlate] = 40;
+            this.checkedInCars[licensePlate] = this.payIncrease(licensePlate, this.hourForEachCar[licensePlate], this.minForEachCar[licensePlate], price);
             return this.checkedInCars[licensePlate];
         }
     }
@@ -43,4 +47,10 @@ class ParkingLot {
             }
         }
     }
+	
+	payIncrease(licensePlate, hour, min, basePrice){
+		const endPrice = basePrice * Math.floor((new Date().getHours() * 60 - hour * 60 + new Date().getMinutes() - min) / basePrice + 1); 
+
+		return endPrice;
+	}
 }
