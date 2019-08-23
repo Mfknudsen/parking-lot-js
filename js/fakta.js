@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkin = document.getElementById('entrance-gate');
     const checkout = document.getElementById('exit-gate');
 
-	const fotexBasePrice = 15;
-    const priceOffer = 0;
+	const fotexBasePrice = 20;
+    const priceOffer = 10;
     
     checkin.addEventListener('click', () => {
         try {
