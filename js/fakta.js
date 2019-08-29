@@ -1,3 +1,14 @@
+class FaktaStrategi {
+
+    PriceCalculator(){
+
+    };
+
+    constructor(){
+
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const parkingLot = new ParkingLot();
 
@@ -6,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const fotexBasePrice = 20;
     const priceOffer = 10;
-    
+
     checkin.addEventListener('click', () => {
         try {
             const licensePlate = prompt('Nummerplade?');
